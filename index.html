@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Política de privacidad — Day Starter</title>
+<title>Day Starter — Panel de productividad para empezar el día</title>
+<meta name="description" content="Day Starter reemplaza tu pestaña nueva por un panel de productividad: objetivos, tareas, calendario y pomodoro en un solo lugar." />
+<link rel="icon" type="image/png" href="logo.png" />
 <style>
   html[data-theme="dark"] {
     --bg: #1a1a1e;
@@ -19,6 +21,7 @@
     --accent-soft: rgba(212, 175, 106, 0.18);
     --accent-text: #1c1607;
     --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --glow: rgba(212, 175, 106, 0.30);
   }
   html[data-theme="light"] {
     --bg: #f5f3ee;
@@ -34,225 +37,276 @@
     --accent-soft: rgba(163, 121, 58, 0.12);
     --accent-text: #ffffff;
     --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    --glow: rgba(163, 121, 58, 0.18);
   }
-
   * { box-sizing: border-box; }
-
   body {
     margin: 0;
     font-family: -apple-system, "Segoe UI", Arial, sans-serif;
     background: var(--bg);
     color: var(--text);
-    transition: background 0.2s, color 0.2s;
+    overflow-x: hidden;
   }
 
-  .wrap {
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 48px 20px 80px;
+  /* ---------- Fondo decorativo ---------- */
+  .bg-glow {
+    position: fixed;
+    top: -220px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 900px;
+    height: 560px;
+    background: radial-gradient(closest-side, var(--glow), transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bg-stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.5;
+    background-image:
+      radial-gradient(1.5px 1.5px at 10% 20%, var(--border-strong), transparent),
+      radial-gradient(1.5px 1.5px at 80% 12%, var(--border-strong), transparent),
+      radial-gradient(1.5px 1.5px at 60% 30%, var(--border-strong), transparent),
+      radial-gradient(1.5px 1.5px at 30% 45%, var(--border-strong), transparent),
+      radial-gradient(1.5px 1.5px at 90% 55%, var(--border-strong), transparent),
+      radial-gradient(1.5px 1.5px at 15% 70%, var(--border-strong), transparent);
+    background-size: 100% 100%;
   }
 
-  .top-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-weight: 700;
-    font-size: 15px;
-  }
-
+  .wrap { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; padding: 40px 20px 90px; }
+  .top-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 44px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px; }
   .brand-mark {
-    width: 34px;
-    height: 34px;
-    border-radius: 10px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
+    width: 34px; height: 34px; border-radius: 10px;
+    overflow: hidden; display: flex; align-items: center; justify-content: center;
+    box-shadow: var(--shadow);
   }
+  .brand-mark img { width: 100%; height: 100%; display: block; }
 
   .theme-btn {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-hover);
-    border: 0.5px solid var(--border);
-    color: var(--text-secondary);
-    cursor: pointer;
+    width: 34px; height: 34px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--bg-hover); border: 0.5px solid var(--border);
+    color: var(--text-secondary); cursor: pointer;
   }
   .theme-btn:hover { background: var(--accent-soft); color: var(--accent); }
   .theme-btn svg { width: 16px; height: 16px; }
 
-  .panel {
-    background: var(--bg-panel);
-    border: 0.5px solid var(--border);
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    padding: 32px;
+  /* ---------- Hero ---------- */
+  .hero { text-align: center; margin-bottom: 20px; }
+  .hero-logo {
+    width: 84px; height: 84px; margin: 0 auto 22px;
+    border-radius: 22px;
+    box-shadow: 0 0 0 1px var(--border), 0 16px 40px var(--glow);
+    overflow: hidden;
+  }
+  .hero-logo img { width: 100%; height: 100%; display: block; }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 6px 14px; border-radius: 99px; margin-bottom: 18px;
   }
 
-  h1 {
-    font-size: 24px;
-    margin: 0 0 4px;
-    color: var(--text);
+  .hero h1 {
+    font-size: 40px; line-height: 1.15; margin: 0 0 16px; letter-spacing: -0.5px;
   }
+  .hero h1 em { color: var(--accent); font-style: normal; }
+  .hero p { color: var(--text-secondary); font-size: 16px; max-width: 540px; margin: 0 auto; line-height: 1.65; }
 
-  .updated {
-    color: var(--text-tertiary);
-    font-size: 13px;
-    margin-bottom: 28px;
+  .cta-row { display: flex; justify-content: center; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  .btn {
+    font-family: inherit; font-size: 13.5px; font-weight: 700; border-radius: 12px;
+    cursor: pointer; padding: 13px 22px; border: 0.5px solid transparent;
+    display: inline-flex; align-items: center; gap: 7px; text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
   }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: var(--accent-text); box-shadow: 0 8px 24px var(--glow); }
+  .btn-outline { background: var(--bg-panel); border-color: var(--border-strong); color: var(--text); }
 
-  h2 {
-    font-size: 15px;
-    color: var(--accent);
-    margin-top: 30px;
-    margin-bottom: 10px;
-    letter-spacing: 0.2px;
+  /* ---------- Mockup del panel ---------- */
+  .mockup-wrap { margin: 64px 0 56px; display: flex; justify-content: center; }
+  .mockup {
+    width: 100%; max-width: 560px;
+    background: var(--bg-panel); border: 0.5px solid var(--border); border-radius: 20px;
+    box-shadow: 0 24px 60px var(--glow), var(--shadow);
+    overflow: hidden;
   }
-
-  p, li {
-    font-size: 14px;
-    line-height: 1.65;
-    color: var(--text);
+  .mockup-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 12px 16px; border-bottom: 0.5px solid var(--border);
   }
-
-  ul {
-    padding-left: 20px;
-    margin: 10px 0;
+  .mockup-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--border-strong); }
+  .mockup-body { padding: 20px; display: grid; gap: 12px; }
+  .mockup-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg-input); border-radius: 12px; padding: 12px 14px;
   }
-
-  li { margin-bottom: 6px; }
-
-  strong { color: var(--text); }
-
-  code {
-    background: var(--bg-input);
-    border: 0.5px solid var(--border);
-    padding: 2px 6px;
-    border-radius: 6px;
-    font-size: 12.5px;
-    color: var(--accent);
+  .mockup-row .label { font-size: 12.5px; color: var(--text-secondary); }
+  .mockup-row .value { font-size: 13px; font-weight: 700; color: var(--text); }
+  .mockup-bar-track { height: 6px; border-radius: 99px; background: var(--bg-input); overflow: hidden; margin-top: 8px; }
+  .mockup-bar-fill { height: 100%; width: 68%; background: var(--accent); border-radius: 99px; }
+  .mockup-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .mockup-stat {
+    background: var(--bg-input); border-radius: 12px; padding: 12px; text-align: center;
   }
+  .mockup-stat .n { font-size: 18px; font-weight: 800; color: var(--text); }
+  .mockup-stat .l { font-size: 10.5px; color: var(--text-tertiary); margin-top: 2px; }
 
-  a {
-    color: var(--accent);
-    text-decoration: none;
+  /* ---------- Features ---------- */
+  .section-title { text-align: center; font-size: 22px; margin: 0 0 8px; }
+  .section-sub { text-align: center; color: var(--text-secondary); font-size: 14px; margin: 0 0 32px; }
+
+  .features {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-bottom: 56px;
   }
-  a:hover { text-decoration: underline; }
-
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 28px 0;
+  .feature-card {
+    background: var(--bg-panel); border: 0.5px solid var(--border); border-radius: 16px;
+    box-shadow: var(--shadow); padding: 20px;
+    transition: transform 0.15s, box-shadow 0.15s;
   }
+  .feature-card:hover { transform: translateY(-2px); box-shadow: 0 16px 32px var(--glow); }
+  .feature-icon {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--accent-soft); color: var(--accent);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 12px;
+  }
+  .feature-icon svg { width: 18px; height: 18px; }
+  .feature-card h3 { font-size: 14.5px; margin: 0 0 6px; color: var(--text); }
+  .feature-card p { font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.55; }
 
-  .footer-note {
-    text-align: center;
-    color: var(--text-tertiary);
-    font-size: 12px;
-    margin-top: 24px;
+  .panel { background: var(--bg-panel); border: 0.5px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); padding: 26px; }
+  .panel-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .panel-head .feature-icon { margin-bottom: 0; }
+  .panel h2 { font-size: 16px; color: var(--text); margin: 0; }
+  .panel p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.65; margin: 0 0 8px; }
+  .panel a { color: var(--accent); font-weight: 600; }
+
+  .footer-links { text-align: center; margin-top: 40px; font-size: 13px; }
+  .footer-links a { color: var(--text-secondary); text-decoration: none; margin: 0 10px; }
+  .footer-links a:hover { color: var(--accent); }
+  .footer-note { text-align: center; color: var(--text-tertiary); font-size: 12px; margin-top: 16px; }
+
+  @media (max-width: 480px) {
+    .features { grid-template-columns: 1fr; }
+    .mockup-grid { grid-template-columns: repeat(3, 1fr); }
+    .hero h1 { font-size: 30px; }
   }
 </style>
 </head>
 <body>
 
+<div class="bg-glow"></div>
+<div class="bg-stars"></div>
+
 <div class="wrap">
   <div class="top-row">
     <div class="brand">
-      <div class="brand-mark">☀</div>
+      <div class="brand-mark"><img src="logo.png" alt="Day Starter" /></div>
       Day Starter
     </div>
     <button class="theme-btn" id="themeToggleBtn" title="Cambiar tema"></button>
   </div>
 
-  <div class="panel">
-    <h1>Política de privacidad</h1>
-    <p class="updated">Última actualización: 8 de julio de 2026</p>
-
+  <div class="hero">
+    <div class="hero-logo"><img src="logo.png" alt="Day Starter" /></div>
+    <div class="eyebrow">✦ Extensión de Chrome</div>
+    <h1>Empieza el día<br><em>con foco</em></h1>
     <p>
-      Day Starter ("la extensión", "nosotros") es una extensión de Chrome que reemplaza tu
-      pestaña nueva por un panel de productividad: objetivos, tareas, pomodoro y tu calendario
-      de Google. Esta política explica qué datos accede la extensión, para qué se usan y cómo
-      los controlas.
+      Day Starter reemplaza tu pestaña nueva por un panel de productividad personal:
+      define tu objetivo del día, organiza tus tareas, revisa tu agenda de Google Calendar
+      y mantente enfocado con pomodoro — todo en un solo lugar, sin salir del navegador.
     </p>
-
-    <h2>Resumen rápido</h2>
-    <ul>
-      <li>Tus datos <strong>no salen de tu navegador</strong>. No hay servidores propios ni base de datos externa.</li>
-      <li>No vendemos, compartimos ni transferimos tu información a terceros, bajo ninguna circunstancia.</li>
-      <li>No usamos tus datos con fines publicitarios ni para entrenar modelos de IA.</li>
-      <li>Puedes desconectar tu cuenta de Google y borrar todos tus datos en cualquier momento.</li>
-    </ul>
-
-    <h2>1. Datos de Google Calendar</h2>
-    <p>
-      Si conectas tu cuenta de Google, Day Starter solicita el permiso
-      <code>calendar.events</code> para leer y crear eventos en tu calendario principal:
-    </p>
-    <ul>
-      <li>Lee los eventos de hoy y de los próximos 7 días (título, fecha, hora) para mostrarlos en el panel.</li>
-      <li>Crea eventos nuevos únicamente cuando tú lo pides explícitamente desde el botón "+ Evento".</li>
-      <li>Esta información se usa <strong>solo</strong> para mostrarte tu agenda dentro de la extensión. No se envía a ningún servidor nuestro, no se analiza ni se comparte con nadie.</li>
-    </ul>
-
-    <h2>2. Datos que introduces tú</h2>
-    <p>
-      Los objetivos, tareas, notas, horarios y configuración de pomodoro que creas dentro de la
-      extensión se guardan usando <code>chrome.storage.local</code>, el almacenamiento local del
-      propio navegador. Esta información nunca sale de tu computadora ni pasa por ningún servidor
-      externo.
-    </p>
-
-    <h2>3. Datos de clima (opcional)</h2>
-    <p>
-      Si activas la función de clima, la ciudad que indiques se envía a la API pública y gratuita
-      <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> únicamente
-      para obtener la temperatura y condición actual. Open-Meteo no requiere ni recibe tu
-      identidad de Google ni ningún otro dato personal.
-    </p>
-
-    <h2>Qué NO hacemos</h2>
-    <ul>
-      <li>No operamos servidores propios: la extensión funciona enteramente en tu navegador.</li>
-      <li>No vendemos ni transferimos datos a terceros ni a redes de publicidad.</li>
-      <li>No usamos tus datos para fines distintos a mostrarte tu propia información dentro del panel.</li>
-      <li>No accedemos al contenido de tus correos ni a ningún otro dato de tu cuenta de Google fuera del calendario.</li>
-    </ul>
-
-    <h2>Cómo revocar el acceso y borrar tus datos</h2>
-    <ul>
-      <li><strong>Desde la extensión:</strong> abre el panel y pulsa "Desconectar" junto a tu cuenta de Google, en Ajustes.</li>
-      <li><strong>Desde tu cuenta de Google:</strong> revoca el acceso en cualquier momento desde <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>.</li>
-      <li><strong>Para borrar tus datos locales</strong> (objetivos, tareas, notas): desinstala la extensión, o usa la opción de exportar/borrar configuración dentro de Ajustes.</li>
-    </ul>
-
-    <h2>Cambios a esta política</h2>
-    <p>
-      Si actualizamos esta política, cambiaremos la fecha de "Última actualización" al inicio de
-      esta página. Te recomendamos revisarla ocasionalmente.
-    </p>
-
-    <div class="divider"></div>
-
-    <h2>Contacto</h2>
-    <p>
-      Si tienes preguntas sobre esta política o sobre el manejo de tus datos, escríbenos a
-      <a href="mailto:custodevzone@gmail.com">custodevzone@gmail.com</a>.
-    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://chrome.google.com/webstore" target="_blank" rel="noopener">Añadir a Chrome — gratis</a>
+      <a class="btn btn-outline" href="privacy-policy.html">Política de privacidad</a>
+    </div>
   </div>
 
+  <div class="mockup-wrap">
+    <div class="mockup">
+      <div class="mockup-bar">
+        <div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div>
+      </div>
+      <div class="mockup-body">
+        <div class="mockup-row">
+          <span class="label">🎯 Objetivo del día</span>
+          <span class="value">Lanzar Day Starter</span>
+        </div>
+        <div>
+          <div class="mockup-bar-track"><div class="mockup-bar-fill"></div></div>
+        </div>
+        <div class="mockup-grid">
+          <div class="mockup-stat"><div class="n">3</div><div class="l">POMODOROS</div></div>
+          <div class="mockup-stat"><div class="n">5</div><div class="l">TAREAS</div></div>
+          <div class="mockup-stat"><div class="n">68%</div><div class="l">OBJETIVO</div></div>
+        </div>
+        <div class="mockup-row">
+          <span class="label">📅 Próximo evento</span>
+          <span class="value">10:00 · Reunión equipo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 class="section-title">Todo lo que necesitas para arrancar</h2>
+  <p class="section-sub">Cuatro herramientas, un solo panel.</p>
+
+  <div class="features">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <h3>Objetivos y tareas</h3>
+      <p>Define tu objetivo del día, organiza tus tareas por prioridad y sigue tu progreso con barras visuales.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>
+      </div>
+      <h3>Calendario</h3>
+      <p>Ve tus eventos de hoy y de la semana, y crea nuevos eventos sin salir del panel.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+      </div>
+      <h3>Pomodoro</h3>
+      <p>Temporizador de enfoque y descanso integrado, con seguimiento de pomodoros completados por día.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      </div>
+      <h3>Notas y espacios de trabajo</h3>
+      <p>Guarda notas rápidas y abre tus grupos de pestañas frecuentes con un solo clic.</p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
+      </div>
+      <h2>Privacidad ante todo</h2>
+    </div>
+    <p>
+      Day Starter funciona enteramente en tu navegador. No operamos servidores propios: tus
+      objetivos, tareas y notas se guardan solo localmente, y los datos de tu Google Calendar
+      se usan únicamente para mostrártelos en el panel — nunca se comparten con terceros.
+    </p>
+    <p>Lee el detalle completo en la <a href="privacy-policy.html">política de privacidad →</a></p>
+  </div>
+
+  <div class="footer-links">
+    <a href="privacy-policy.html">Privacidad</a>
+    <a href="mailto:custodevzone@gmail.com">Soporte</a>
+  </div>
   <div class="footer-note">Day Starter — panel de productividad para empezar el día</div>
 </div>
 
@@ -261,17 +315,14 @@
   const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
   const root = document.documentElement;
   const btn = document.getElementById("themeToggleBtn");
-
   function applyTheme(theme) {
     root.setAttribute("data-theme", theme);
     btn.innerHTML = theme === "dark" ? SUN : MOON;
     try { localStorage.setItem("dsPrivacyTheme", theme); } catch (e) {}
   }
-
   let saved = "dark";
   try { saved = localStorage.getItem("dsPrivacyTheme") || "dark"; } catch (e) {}
   applyTheme(saved);
-
   btn.addEventListener("click", () => {
     applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
   });
