@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Política de privacidad — Day Starter</title>
+<style>
+  html[data-theme="dark"] {
+    --bg: #1a1a1e;
+    --bg-panel: #232328;
+    --bg-input: #2a2a30;
+    --bg-hover: rgba(255, 255, 255, 0.07);
+    --border: rgba(255, 255, 255, 0.10);
+    --border-strong: rgba(255, 255, 255, 0.20);
+    --text: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.60);
+    --text-tertiary: rgba(255, 255, 255, 0.40);
+    --accent: #d4af6a;
+    --accent-soft: rgba(212, 175, 106, 0.18);
+    --accent-text: #1c1607;
+    --shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+  html[data-theme="light"] {
+    --bg: #f5f3ee;
+    --bg-panel: #ffffff;
+    --bg-input: #ffffff;
+    --bg-hover: rgba(0, 0, 0, 0.03);
+    --border: #e7e4db;
+    --border-strong: #c9c7bd;
+    --text: #18170f;
+    --text-secondary: #6b6a63;
+    --text-tertiary: #9c9a90;
+    --accent: #a3793a;
+    --accent-soft: rgba(163, 121, 58, 0.12);
+    --accent-text: #ffffff;
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+
+  .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .brand-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+
+  .theme-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-hover);
+    border: 0.5px solid var(--border);
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+  .theme-btn:hover { background: var(--accent-soft); color: var(--accent); }
+  .theme-btn svg { width: 16px; height: 16px; }
+
+  .panel {
+    background: var(--bg-panel);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 32px;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin: 0 0 4px;
+    color: var(--text);
+  }
+
+  .updated {
+    color: var(--text-tertiary);
+    font-size: 13px;
+    margin-bottom: 28px;
+  }
+
+  h2 {
+    font-size: 15px;
+    color: var(--accent);
+    margin-top: 30px;
+    margin-bottom: 10px;
+    letter-spacing: 0.2px;
+  }
+
+  p, li {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  ul {
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+
+  li { margin-bottom: 6px; }
+
+  strong { color: var(--text); }
+
+  code {
+    background: var(--bg-input);
+    border: 0.5px solid var(--border);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    color: var(--accent);
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  a:hover { text-decoration: underline; }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+  }
+
+  .footer-note {
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: 12px;
+    margin-top: 24px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top-row">
+    <div class="brand">
+      <div class="brand-mark">☀</div>
+      Day Starter
+    </div>
+    <button class="theme-btn" id="themeToggleBtn" title="Cambiar tema"></button>
+  </div>
+
+  <div class="panel">
+    <h1>Política de privacidad</h1>
+    <p class="updated">Última actualización: 8 de julio de 2026</p>
+
+    <p>
+      Day Starter ("la extensión", "nosotros") es una extensión de Chrome que reemplaza tu
+      pestaña nueva por un panel de productividad: objetivos, tareas, pomodoro y tu calendario
+      de Google. Esta política explica qué datos accede la extensión, para qué se usan y cómo
+      los controlas.
+    </p>
+
+    <h2>Resumen rápido</h2>
+    <ul>
+      <li>Tus datos <strong>no salen de tu navegador</strong>. No hay servidores propios ni base de datos externa.</li>
+      <li>No vendemos, compartimos ni transferimos tu información a terceros, bajo ninguna circunstancia.</li>
+      <li>No usamos tus datos con fines publicitarios ni para entrenar modelos de IA.</li>
+      <li>Puedes desconectar tu cuenta de Google y borrar todos tus datos en cualquier momento.</li>
+    </ul>
+
+    <h2>1. Datos de Google Calendar</h2>
+    <p>
+      Si conectas tu cuenta de Google, Day Starter solicita el permiso
+      <code>calendar.events</code> para leer y crear eventos en tu calendario principal:
+    </p>
+    <ul>
+      <li>Lee los eventos de hoy y de los próximos 7 días (título, fecha, hora) para mostrarlos en el panel.</li>
+      <li>Crea eventos nuevos únicamente cuando tú lo pides explícitamente desde el botón "+ Evento".</li>
+      <li>Esta información se usa <strong>solo</strong> para mostrarte tu agenda dentro de la extensión. No se envía a ningún servidor nuestro, no se analiza ni se comparte con nadie.</li>
+    </ul>
+
+    <h2>2. Datos que introduces tú</h2>
+    <p>
+      Los objetivos, tareas, notas, horarios y configuración de pomodoro que creas dentro de la
+      extensión se guardan usando <code>chrome.storage.local</code>, el almacenamiento local del
+      propio navegador. Esta información nunca sale de tu computadora ni pasa por ningún servidor
+      externo.
+    </p>
+
+    <h2>3. Datos de clima (opcional)</h2>
+    <p>
+      Si activas la función de clima, la ciudad que indiques se envía a la API pública y gratuita
+      <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> únicamente
+      para obtener la temperatura y condición actual. Open-Meteo no requiere ni recibe tu
+      identidad de Google ni ningún otro dato personal.
+    </p>
+
+    <h2>Qué NO hacemos</h2>
+    <ul>
+      <li>No operamos servidores propios: la extensión funciona enteramente en tu navegador.</li>
+      <li>No vendemos ni transferimos datos a terceros ni a redes de publicidad.</li>
+      <li>No usamos tus datos para fines distintos a mostrarte tu propia información dentro del panel.</li>
+      <li>No accedemos al contenido de tus correos ni a ningún otro dato de tu cuenta de Google fuera del calendario.</li>
+    </ul>
+
+    <h2>Cómo revocar el acceso y borrar tus datos</h2>
+    <ul>
+      <li><strong>Desde la extensión:</strong> abre el panel y pulsa "Desconectar" junto a tu cuenta de Google, en Ajustes.</li>
+      <li><strong>Desde tu cuenta de Google:</strong> revoca el acceso en cualquier momento desde <a href="https://myaccount.google.com/permissions" target="_blank" rel="noopener">myaccount.google.com/permissions</a>.</li>
+      <li><strong>Para borrar tus datos locales</strong> (objetivos, tareas, notas): desinstala la extensión, o usa la opción de exportar/borrar configuración dentro de Ajustes.</li>
+    </ul>
+
+    <h2>Cambios a esta política</h2>
+    <p>
+      Si actualizamos esta política, cambiaremos la fecha de "Última actualización" al inicio de
+      esta página. Te recomendamos revisarla ocasionalmente.
+    </p>
+
+    <div class="divider"></div>
+
+    <h2>Contacto</h2>
+    <p>
+      Si tienes preguntas sobre esta política o sobre el manejo de tus datos, escríbenos a
+      <a href="mailto:custodevzone@gmail.com">custodevzone@gmail.com</a>.
+    </p>
+  </div>
+
+  <div class="footer-note">Day Starter — panel de productividad para empezar el día</div>
+</div>
+
+<script>
+  const SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>';
+  const MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+  const root = document.documentElement;
+  const btn = document.getElementById("themeToggleBtn");
+
+  function applyTheme(theme) {
+    root.setAttribute("data-theme", theme);
+    btn.innerHTML = theme === "dark" ? SUN : MOON;
+    try { localStorage.setItem("dsPrivacyTheme", theme); } catch (e) {}
+  }
+
+  let saved = "dark";
+  try { saved = localStorage.getItem("dsPrivacyTheme") || "dark"; } catch (e) {}
+  applyTheme(saved);
+
+  btn.addEventListener("click", () => {
+    applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark");
+  });
+</script>
+
+</body>
+</html>
